@@ -1,2 +1,4 @@
-# node-restserver
-Repositorio de Node
+## Repositorio de Node
+
+* Instalar dependencias ejecutanto el comando:
+``` npm install ```
