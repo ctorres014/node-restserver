@@ -11,11 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
     // parse application/json
 app.use(bodyParser.json())
 
-//Importamos las rutas
-app.use(require('./routes/usuario'));
+// Config global de rutas
+app.use(require('./routes/index'));
 
 // Conection to server
-mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false },
     (err) => {
 
         if (err) throw err;

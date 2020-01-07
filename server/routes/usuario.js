@@ -3,10 +3,11 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 // Import Model
 const Usuario = require('../models/usuario')
+const { verificarToken, verificarAdminRole } = require('../middlewares/authentication');
 
 const app = express()
 
-app.get('/usuarios', function(req, res) {
+app.get('/usuarios', verificarToken, (req, res) => {
     let desde = Number(req.query.desde) || 0;
     let limite = Number(req.query.limite) || 0;
 
@@ -32,7 +33,7 @@ app.get('/usuarios', function(req, res) {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificarToken, verificarAdminRole], (req, res) => {
     let body = req.body;
 
     // Creamos una instancia de usuario y le 
@@ -63,7 +64,7 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
     let id = req.params.id;
     // Usamos la funcion pick que nos retorna una copia del objeto
     // con las propiedades que nosotros necesitamos
@@ -92,11 +93,11 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
     let id = req.params.id;
 
     //  Usuario.findByIdAndRemove - Elimina el usuario fisicamente
-    Usuario.findByIdAndUpdate(id, { estado: false }, { new: true }, (err, usuarioDelete) => {
+    Usuario.findOneAndUpdate(id, { estado: false }, { new: true }, (err, usuarioDelete) => {
         if (err) {
             return res.status(400).json({
                 ok: false,

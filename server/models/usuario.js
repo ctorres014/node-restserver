@@ -43,7 +43,7 @@ let usuarioSchema = new Schema({
 });
 
 // Modificamos el schema que estamos retornando
-usuarioSchema.methods.toJson = function() {
+usuarioSchema.methods.toJSON = function() {
     let user = this; // This hace referencia a lo que tiene el schema en ese momento
     let userObj = user.toObject();
     delete userObj.password; // Eliminamos el campo del schema antes de ser retornado
