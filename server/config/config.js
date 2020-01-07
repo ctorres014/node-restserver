@@ -17,7 +17,5 @@ if (process.env.NODE_ENV === 'dev') {
 } else {
     urlDB = process.env.MONGO_URI;
 }
-// Comentar
-// urlDB = 'mongodb+srv://ctorres014:dJ1RoT8Td3oG5Kuq@cluster0-gbca6.mongodb.net/cafe';
 
 process.env.URLDB = urlDB;
