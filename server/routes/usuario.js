@@ -48,7 +48,7 @@ app.post('/usuario', [verificarToken, verificarAdminRole], (req, res) => {
     // Guardamos en la BD de Mongo
     usuario.save((err, usuarioDB) => {
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             });
